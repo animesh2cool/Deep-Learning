@@ -1,0 +1,133 @@
+{
+  "name": "push-gmail",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        -160
+      ],
+      "id": "6731063e-eec2-4643-961c-1dc41c7c14a5",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1a_2_-xTndHkXhRGUnfwOTcKAKZWiL45TjNKYuMdYNpU",
+          "mode": "list",
+          "cachedResultName": "email data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1a_2_-xTndHkXhRGUnfwOTcKAKZWiL45TjNKYuMdYNpU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1a_2_-xTndHkXhRGUnfwOTcKAKZWiL45TjNKYuMdYNpU/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        -180,
+        -160
+      ],
+      "id": "47502505-f49a-4d5b-a6c8-ce9cbbd5cdd0",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "sNlQAxybEQBg1sAu",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "Test email n8n",
+        "emailType": "text",
+        "message": "This is an auto generated text send for test purpose, by using n8n",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        260,
+        -160
+      ],
+      "id": "f2ac3b89-f05f-49ae-abba-cd631f0f42de",
+      "name": "Gmail",
+      "webhookId": "e4c16280-a3ab-4fb6-9042-e42337385c4e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "D7FuAEp8uYKZ2lRX",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        40,
+        -160
+      ],
+      "id": "0cb71365-78ff-4569-91c9-80d1e5ec582c",
+      "name": "Limit"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "32c16a15-7e7b-4e99-9e67-91d11efbdb8b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c60638c01c8b5324ede13d4208048c3aa16cc08715ce392daf822cf26e2e0361"
+  },
+  "id": "MuCRAt2YBOK66I9B",
+  "tags": []
+}
